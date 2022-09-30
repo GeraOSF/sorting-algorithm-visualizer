@@ -1,14 +1,33 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import makeBars from './utils/makeBars';
+import Header from './components/Header';
+import bubbleSort from './utils/bubbleSort';
 
 function App() {
-  const [count, setCount] = useState<number>(0);
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState('bubble-sort');
+  const [bars, setBars] = useState(makeBars(50));
+  console.log(bars);
+  // function sort(bars.value) {
+  //   switch(selectedAlgorithm) {
+  //     case "bubble-sort":
+  //       bubbleSort(bars.value);
+  //       break;
+  //     case "selection-sort":
+  //       selectionSort(bars.value);
+  //       break;
+  //     case "merge-sort":
+  //       mergeSort(bars.value);
+  //       break;
+  //   }
+  // }
 
   return (
-    <div className='grid h-screen place-items-center'>
-      <button className='bg-lime-300 border-2 border-r-emerald-300 p-2 font-bold rounded-lg active:translate-y-1' onClick={() => setCount(prevCount => prevCount + 1)}>
-        Click to count up: {count}
-      </button>
-    </div>
+    <>
+      <Header setBars={setBars} selectedAlgorithm={selectedAlgorithm} setSelectedAlgorithm={setSelectedAlgorithm} />
+      <main className="text-slate-50">
+        {bars.map(bar => bar.element)}
+      </main>
+    </>
   )
 }
 
