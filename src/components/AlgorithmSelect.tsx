@@ -1,9 +1,15 @@
+import { useContext } from 'react';
+import { barsContext } from "../App";
+
 interface Props {
   selectedAlgorithm: string;
   setSelectedAlgorithm: React.Dispatch<React.SetStateAction<string>>;
+  sort: (bars: Bar[] | null) => void;
 }
 
-export default function AlgorithmSelect({ selectedAlgorithm, setSelectedAlgorithm }: Props) {
+export default function AlgorithmSelect({ selectedAlgorithm, setSelectedAlgorithm, sort }: Props) {
+  const bars = useContext(barsContext);
+
   function selectOption(e: React.ChangeEvent<HTMLSelectElement>) {
     setSelectedAlgorithm(e.target.value);
   }
@@ -16,7 +22,7 @@ export default function AlgorithmSelect({ selectedAlgorithm, setSelectedAlgorith
         <option value="selection-sort">Selection sort</option>
         <option value="merge-sort">Merge sort</option>
       </select>
-      <button className="bg-blue-500 px-4 py-2 text-white rounded-lg font-bold border border-transparent shadow-lg shadow-blue-500/50 active:translate-y-0.5 hover:border-blue-300">Sort now</button>
+      <button className="bg-blue-500 px-4 py-2 text-white rounded-lg font-bold border border-transparent shadow-lg shadow-blue-500/50 active:translate-y-0.5 hover:border-blue-300" onClick={() => sort(bars)}>Sort now</button>
     </div>
   );
 }

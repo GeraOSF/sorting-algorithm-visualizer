@@ -5,5 +5,6 @@ declare global {
     value: number;
     element: JSX.Element;
     initialPosition: number;
+    color: string;
   }
 }

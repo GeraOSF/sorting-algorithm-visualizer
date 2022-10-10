@@ -1,14 +1,12 @@
-import { useState } from "react";
+import { setBarsContext } from "../App";
+import { useState, useContext } from "react";
 import makeBars from "../utils/makeBars";
 
 const MIN_ARRAY_SIZE = 5;
 const MAX_ARRAY_SIZE = 100;
 
-interface Props {
-  setBars: React.Dispatch<React.SetStateAction<Bar[]>>;
-}
-
-export default function ArraySizeForm({ setBars }: Props) {
+export default function ArraySizeForm() {
+  const setBars = useContext(setBarsContext);
   const [arraySize, setArraySize] = useState(50);
 
   function changeArraySize(e: React.ChangeEvent<HTMLInputElement>) {
@@ -17,12 +15,14 @@ export default function ArraySizeForm({ setBars }: Props) {
 
   function generateNewBars(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (setBars === null) return;
+    // @ts-ignore
     const value = parseInt(e.target["array-size"].value);
     setBars(makeBars(value));
   }
 
   return (
-    <form className="flex gap-4 justify-center" onSubmit={generateNewBars}>
+    <form className="flex flex-wrap gap-4 justify-center" onSubmit={generateNewBars}>
       <div className="flex flex-col items-center">
         <label htmlFor="array-size">Adjust the size of the array:</label>
         <input
