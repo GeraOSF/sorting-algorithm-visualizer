@@ -1,6 +1,6 @@
 import delay from "./delay";
 
-export default async function bubbleSort(bars: Bar[], setBars: React.Dispatch<React.SetStateAction<Bar[]>>) {
+export default async function bubbleSort(bars: Bar[], setBars?: React.Dispatch<React.SetStateAction<Bar[]>>) {
   const array = [...bars];
   const length = array.length;
   let swaped: boolean;
@@ -16,5 +16,6 @@ export default async function bubbleSort(bars: Bar[], setBars: React.Dispatch<Re
     }
     iterations++;
   } while (swaped);
-  setBars(array);
+  setBars && setBars(array);
+  return array;
 }
